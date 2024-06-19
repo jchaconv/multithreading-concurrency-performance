@@ -1,0 +1,136 @@
+
+***************************************************************************************************
+                                        SECCION 1 - INTRODUCCION
+***************************************************************************************************
+
+Clase 1 - Por qué se necesitan Threads?
+
+* responsiveness - concurrency: capacidad de respuesta del sistema
+    Ejemplo: Esperar por el customer support, larga espara por respuesta de una persona
+     sin feedback de la aplicación. Todas estas cosas son las que queremos evitar.
+
+     Las aplicaciones de user interface como plataformas de audio y video necesitan multitasking para tener una 
+     respuesta inmediata a las acciones del usuario.
+
+     !!Concurrency es multitasking y solo se necesita un core para alcanzar esto, ya que es mediante threads.
+
+* performance - parallelism: completar acciones complejas más rápido
+    Ejemplo: el core crea ilusiones de los tasks para ejecutarlos simultaneamente y con más cores se ejecutarían
+    más tasks. Se puede completar más trabajo en el mismo periodo.
+    Para escalamiento de servicios esto implica menos maquinas, menos dinero en hardware y más ahorro para el cliente.
+
+
+Advertencia: La programación multithreading es diferente a la single threaded programming
+
+---------------------------------
+
+Clase 2 - What threads are to OS?
+
+- mi definición es que los procesos(context) que se ejecutan en la memoria están conformados por hilos, en ese sentido, son parte de los procesos.
+
+definicion más completa de threads:
+
+
+Process (Context) :
+cuando se ejecuta una aplicación el disco crea una instancia del app en la memoria.
+esto se llama process o context y está conformado así (metada):
+
+!!Importante: los threads tienen sus propios elementos pero comparten todos los recursos del context 
+
+- PID
+- files
+- data(heap)
+- code
+- main thread
+    - Stack                 --------> region in memory where local variables are stored and functions are executed
+    - Instruction pointer   --------> address of the next instruction to execute
+
+(cuando es multithread el app):
+- Thread 1
+    - Stack                 (propio del thread)
+    - Instruction pointer   (propio del thread)
+
+
+--------------------------------->
+
+Clase 3 - Context switch, Thread scheduling and Thread vs Processes
+
+* Context switch
+    Ya que cada proceso compite con otro por ejecutarse en el core existe un stop al thread de un proceso
+    y un start a otro thread de otro proceso. Este switch o cambio también genera costos de concurrency porque
+    hay un trabajo de guardar los recursos del thread y vovler a cargar los de otro thread(y así sucesivamente).
+    !!El problema Trashing es cuando hay muchos hilos y el core se está tomando más tiempo en este switcheo que en ejecutar las tareas.
+
+* Thread scheduling
+    El OS tiene una priorización dinámica para priorizar los threads dinámicos y evitar la "starvation" o inanición de un thread en el sistema.
+
+
+***************************************************************************************************
+                                        SECCION 2 - THREAD CREATION
+***************************************************************************************************
+
+
+Clase 4 - How to create Threads ?
+
+* El main thread se ejecuta por defecto. Si no se define la prioridad no se puede saber con certeza
+el orden de ejecución de los Threads.
+
+Todas las propiedades están encapsuladas en la clase Thread.
+Ver el proyecto con los packages y clases correspondientes a los temas.
+
+* Primera forma de crear(usando Runnable en el constructor):
+
+El objeto necesita la implementación de Runnable interface(se puede usar lambda)
+
+Thread thread = new Thread(new Runnable() {
+    @Override
+    public void run() {
+
+    }
+});
+
+Ver:
+- ThreadsCreation.java
+- ThreadsException.java
+
+setName para establecer nombre de Thread
+setPriority para la prioridad que tendrá en el cpu
+start para ejecutar la lógica del thread
+setUncaughtExceptionHandler para manejo de errores
+
+---------------------------------------------------------------------------------------------------
+
+Clase 5 - Threads Inheritance
+
+* Segunda forma de crear Thread (usando herencia)
+
+Puedo acceder con this directamente a los métodos
+
+Ejemplo de la caja fuerte y los hackers en ThreadsInheritance2.java
+
+                                  Runnable
+                                     |
+                                   Thread
+Vault -----> HackerThread         ---|---         PoliceThread
+        AscendingHackerThread
+        DescendingHackerThread
+
+Nota: El ejemplo consiste en que ingreso un password random y los hacker threads hacen su proceso
+hasta encontrar la combinación correcta antes que el police thread. Si pasan los 10 seg sin encontrar
+termina el programa y el police gana, caso contrario el hacker gana.
+
+---------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
