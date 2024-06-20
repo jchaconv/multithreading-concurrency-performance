@@ -1,4 +1,4 @@
-package org.demoproject.section2;
+package org.demoproject.section2threadcreation;
 
 import java.util.ArrayList;
 import java.util.List;

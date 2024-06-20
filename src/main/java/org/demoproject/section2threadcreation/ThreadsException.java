@@ -1,4 +1,4 @@
-package org.demoproject.section2;
+package org.demoproject.section2threadcreation;
 
 public class ThreadsException {
 

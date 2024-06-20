@@ -119,9 +119,37 @@ Nota: El ejemplo consiste en que ingreso un password random y los hacker threads
 hasta encontrar la combinación correcta antes que el police thread. Si pasan los 10 seg sin encontrar
 termina el programa y el police gana, caso contrario el hacker gana.
 
----------------------------------------------------------------------------------------------------
+
+***************************************************************************************************
+                       SECCION 3 - THREADING FUNDAMENTALS - THREAD COORDINATIONS
+***************************************************************************************************
+
+Clase 6 - Thread termination & Daemon threads
+
+* Thread termination (Cuándo y por qué terminar un thread?)
+    - Los threads consumen memory y kernel resources incluso cuando no están haciendo nada.
+    - También consumen CPU Cycles y Cache memory.
+    - Si el thread terminó su trabajo y la aplicación sigue ejecutandose, necesitamos limpiar
+      los recursos de ese thread.
+    - SI un thread falla, lo detendremos.
+    - Por defecto una aplicación funciona con al menos un thread, podemos terminar todos los demás.
+
+* Thread.interrupt()
+    ¿Cuándo podemos interrumpir un Thread?
+    - Si el thread ejecuta un método que lanza(throws) un InterruptedException y solo en esos métodos  (Ver ThreadTermination.java)
+    - Si el código que está ejecutando el thread maneja el "interrupt signal" explicitamente.          (Ver ThreadTermination2.java)
 
 
+* Daemon threads
+    Sirven para prevenir que un thread bloquee la aplicación de finalizar. Son threads de background que no bloquean la aplicación para terminar.
+    Es decir, no importa si inesperadamente se cierra la aplicación y el thread se estaba ejecutando, no se necesita esperar para terminar la aplicación.
+
+    Ejemplos de Daemon threads:
+    - Background tasks como file saving thread in a text editor
+
+    Ver ThreadDaemon.java ---> Es el mismo ejemplo que ThreadTermination2.java solo que aquí no manejamos una lógica de "interrupt signal"
+    y seteamos el daemon thread y finalizamos el main thread, con esto comprobamos que si el main termina, no es necesario esperar a que termine
+    el daemon thread para que finalice la aplicación.
 
 ---------------------------------------------------------------------------------------------------
 
