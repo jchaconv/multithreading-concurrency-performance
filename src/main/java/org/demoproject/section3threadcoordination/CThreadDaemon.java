@@ -2,7 +2,7 @@ package org.demoproject.section3threadcoordination;
 
 import java.math.BigInteger;
 
-public class ThreadDaemon {
+public class CThreadDaemon {
 
     public static void main(String[] args) throws InterruptedException {
         Thread thread = new Thread(new LongComputationTask(new BigInteger("2000000000"), new BigInteger("1000000000")));

@@ -153,6 +153,25 @@ Clase 6 - Thread termination & Daemon threads
 
 ---------------------------------------------------------------------------------------------------
 
+Clase 7 - Joining Threads (threads coordination)
+
+Un thread no debe esperar la finalización de otro como para recibir algo como input porque eso consume mucho CPU cada vez que evalúa la finalización del thread anterior.
+
+Por ejemplo: Factorial calculation(CPU Intensive task)
+
+Se creó la clase:
+DThreadJoin -----> La idea es que el calculo de cada factorial sea delegado a diferentes threads y así lo hacemos en paralelo.
+
+* El problema es que cuando se tienen varios threads se puede bloquear el flujo de la aplicación si uno de ellos no termina su proceos.
+
+thread.join(2000) ----> Usando join la idea es que sin importar que otro thread no haya terminado su cálculo, no bloquea o impide que otros threads muestren su resultado,
+                        sin embargo, una vez que otros threads terminan su proceso el thread bloqueado sigue procesando y la aplicación sigue funcionando.
+
+                        * Por eso necesito usar thread.daemon(true) para que una vez que termine el tiempo de espera así haya un thread bloqueado se termine la aplicación.
+
+La lección es que se necesita tener mayor control del código de threads porque pueden tomar un tiempo inesperado y con técnicas como daemon y join se puede controlar
+el flujo de la aplicación. Es necesario porque no sabemos con exactitud el orden de ejecución de los threads. Si un thread no se completa en el tiempo esperado simplemente
+termino su proceso(defensive programming).
 
 
 ---------------------------------------------------------------------------------------------------

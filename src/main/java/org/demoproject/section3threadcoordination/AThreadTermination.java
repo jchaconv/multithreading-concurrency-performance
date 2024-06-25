@@ -1,6 +1,6 @@
 package org.demoproject.section3threadcoordination;
 
-public class ThreadTermination {
+public class AThreadTermination {
 
     public static void main(String[] args) {
 
